@@ -7,7 +7,7 @@ public class M48wxSpiderProcessTest {
 
     @Test
     public void start() {
-        System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "20");
-        Mspider.start(M48wxSpiderProcess.class);
+
+        Mspider.create(M48wxSpiderProcess.class).cache(false).start();
     }
 }
