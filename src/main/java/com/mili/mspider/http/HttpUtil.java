@@ -4,6 +4,9 @@ import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.io.FileUtil;
 import jodd.util.StringUtil;
+import jodd.util.ThreadUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Json;
 
@@ -24,9 +27,18 @@ public class HttpUtil {
 
     public final static HttpResponse httpResponse(String url) {
         HttpRequest httpRequest = httpRequest(url);
-        HttpResponse httpResponse = httpRequest.send();
+        HttpResponse httpResponse;
+        try {
+            httpResponse = httpRequest.send();
+        } catch (Exception e) {
+            logger.error(e.getMessage()+ "[url = " + url + "]", e);
+            ThreadUtil.sleep(10000);
+            return httpResponse(url);
+        }
         return httpResponse;
     }
+
+    private final static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
     public final static HttpRequest httpRequest(String url) {
         return HttpRequest.get(url).connectionTimeout(5000).timeout(600000).acceptEncoding("gzip").accept("text/html");
