@@ -1,6 +1,7 @@
-package com.mili.mspider.http;
+package com.mili.mspider.util;
 
 import com.mili.mspider.HtmlWapper;
+import com.mili.mspider.exdend.HttpRequestWrapper;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.io.FileUtil;
@@ -41,7 +42,7 @@ public class HttpUtil {
     private final static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
     public final static HttpRequest httpRequest(String url) {
-        return HttpRequest.get(url).connectionTimeout(5000).timeout(600000).acceptEncoding("gzip").accept("text/html");
+        return HttpRequestWrapper.get(url).connectionTimeout(5000).timeout(600000).acceptEncoding("gzip").accept("text/html");
     }
 
     public final static Json responseJson(String url) {

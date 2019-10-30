@@ -1,6 +1,6 @@
 package com.mili.mspider;
 
-import com.mili.mspider.http.HttpUtil;
+import com.mili.mspider.util.HttpUtil;
 import us.codecraft.webmagic.utils.UrlUtils;
 
 import java.util.Iterator;

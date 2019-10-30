@@ -2,7 +2,7 @@ package com.mili.mspider.examples;
 
 import com.mili.mspider.HtmlWapper;
 import com.mili.mspider.SpiderProcess;
-import com.mili.mspider.http.HttpUtil;
+import com.mili.mspider.util.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
