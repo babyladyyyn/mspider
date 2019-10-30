@@ -1,5 +1,6 @@
 package com.mili.mspider.http;
 
+import com.mili.mspider.HtmlWapper;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
 import jodd.io.FileUtil;
@@ -7,7 +8,6 @@ import jodd.util.StringUtil;
 import jodd.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Json;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class HttpUtil {
         try {
             httpResponse = httpRequest.send();
         } catch (Exception e) {
-            logger.error(e.getMessage()+ "[url = " + url + "]", e);
+            logger.error(e.getMessage()+" , to retry after 10 seconds ."+ "[url = " + url + "]");
             ThreadUtil.sleep(10000);
             return httpResponse(url);
         }
@@ -63,18 +63,18 @@ public class HttpUtil {
         return responseText(url, "utf-8");
     }
 
-    public final static Html responseHtml(String url) {
+    public final static HtmlWapper responseHtml(String url) {
         return responseBody(url, "utf8");
     }
 
-    public final static Html responseBody(String url, String charset) {
+    public final static HtmlWapper responseBody(String url, String charset) {
         String content = responseText(url, charset);
-        return new Html(content);
+        return new HtmlWapper(url,content);
     }
 
-    public final static Html responseHtml(HttpResponse response,String charset){
+    public final static HtmlWapper responseHtml(HttpResponse response,String charset){
         String content =  StringUtil.newString(response.unzip().bodyBytes(), charset);
-        return new Html(content);
+        return new HtmlWapper(response.getHttpRequest().url(),content);
     }
 
     public final static Json responseJson(HttpResponse response,String charset){
