@@ -8,6 +8,6 @@ public class M48wxSpiderProcessTest {
     @Test
     public void start() {
 
-        Mspider.create(M48wxSpiderProcess.class).cache(false).start();
+        Mspider.create(M48wxSpiderProcess.class).thread(10).start();
     }
 }

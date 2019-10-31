@@ -23,7 +23,7 @@ public interface SpiderProcess {
     default Stream<HtmlWapper> streamCategory(String url) {
         HtmlWapper html = HttpUtil.responseHtml(url);
         HtmlWapper htmlCategory = this.category(html);
-        return Stream.concat(Stream.of(htmlCategory), StreamSupport.stream(Spliterators.spliteratorUnknownSize(this.createIterator(htmlCategory), 0), false));
+        return Stream.concat(Stream.of(htmlCategory), StreamSupport.stream(Spliterators.spliteratorUnknownSize(this.createIterator(htmlCategory), 0), true));
     }
 
     HtmlWapper category(HtmlWapper html);

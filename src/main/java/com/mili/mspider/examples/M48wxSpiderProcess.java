@@ -32,7 +32,7 @@ public class M48wxSpiderProcess implements SpiderProcess {
         }).map(url -> {
             return HttpUtil.responseHtml(fixUrl(url + "all.html"));
         });
-        return htmlWapperStream;
+        return htmlWapperStream.parallel();
     }
 
     private final static Logger logger = LoggerFactory.getLogger(M48wxSpiderProcess.class);
@@ -44,7 +44,7 @@ public class M48wxSpiderProcess implements SpiderProcess {
         })
                 .filter(url -> !url.equals("#bottom"))
                 .map(url -> fixUrl(url))
-                .map(HttpUtil::responseHtml);
+                .map(HttpUtil::responseHtml).parallel();
     }
 
     @Override
